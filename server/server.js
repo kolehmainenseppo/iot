@@ -7,7 +7,7 @@ app.use(express.static('stc'))
 
 app.use(bodyParser.json())
 
-let ac_threshold = 100
+let ac_threshold = 24
 let temperature = null
 let humidity = null
 
@@ -16,18 +16,20 @@ app.get('/', (req, res) => {
 })
 
 app.get('/api', (req, res) => {
-	console.log((new Date), "NOTE", req.query)
-
+	console.log((new Date), "Temperature and humidity data received from arduino", req.query)
+	
 	temperature = Number.parseFloat(req.query.temp)
 	humidity = Number.parseFloat(req.query.humi)
-
-	console.log(temperature, humidity)
-
+	
+	//console.log(temperature, humidity)
+	
+	console.log((new Date), "Sending threshold temperature to arduino, threshold=", ac_threshold);
+	
 	res.send(String(ac_threshold))
 })
 
 app.get('/getdata', (req, res) => {
-	console.log((new Date), "NOTE", 'getdata', req.query)
+//	console.log((new Date), "NOTE", 'getdata', req.query)
 
 	data = {
 	 	temperature: temperature,
@@ -42,7 +44,7 @@ app.get('/getdata', (req, res) => {
 
 
 app.post('/setthreshold', (req,res) => {
-	console.log((new Date), "NOTE", 'setthreshold', req.body)
+	console.log((new Date), "NOTE", 'Threshold temperature received from app', req.body)
 	
 	ac_threshold = req.body.threshold
 

@@ -1,6 +1,3 @@
-console.log("SEPPO ON MAAILMAN KUNINGAS!!!!")
-
-
 document.querySelector("#ac_threshold").addEventListener("input", (e) => {
 
     th = Number.parseFloat(e.target.value)
@@ -9,8 +6,6 @@ document.querySelector("#ac_threshold").addEventListener("input", (e) => {
 })
 
 document.querySelector("#ac_threshold").addEventListener("change", (e) => {
-
-    
     th = Number.parseFloat(e.target.value)
 
     fetch("/setthreshold", {
@@ -19,7 +14,6 @@ document.querySelector("#ac_threshold").addEventListener("change", (e) => {
         body: JSON.stringify({threshold: th}) 
     })
     .then((data) => console.log(data))
-
 })
 
 
@@ -38,7 +32,7 @@ const getData = () => {
     
     setTimeout(() => {
         getData()
-    }, 10000);
+    }, 1000);
 }
 
 getData()
